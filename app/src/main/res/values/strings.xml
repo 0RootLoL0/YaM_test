@@ -5,4 +5,9 @@
     <string name="m_error_not_connect_net">YaM</string>
     <string name="e">YaM</string>
     <string name="r">YaM</string>
+    <string name="tab_feed">main</string>
+    <string name="tab_radio">radio</string>
+    <string name="tab_mymusic">my music</string>
+    <string name="tab_search">search</string>
+    <string name="develop">develop</string>
 </resources>
