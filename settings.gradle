@@ -1,0 +1,3 @@
+rootProject.name='YaM'
+include ':app'
+include ':YandexOauth'

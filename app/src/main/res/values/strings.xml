@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">YaM</string>
+    <string name="m_error_empty_login">YaM</string>
+    <string name="m_error_empty_password">YaM</string>
+    <string name="m_error_not_connect_net">YaM</string>
+    <string name="e">YaM</string>
+    <string name="r">YaM</string>
+</resources>
