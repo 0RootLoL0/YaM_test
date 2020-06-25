@@ -3,32 +3,30 @@
  * Licensed under the GNU GPL, Version 3
  */
 
-package io.github.rootlol.yandexoauth;
+package io.github.rootlol.yandexmusic;
 
-import java.util.Map;
-
-import io.github.rootlol.yandexoauth.pojo.ApiPojoToken;
+import io.github.rootlol.yandexmusic.pojo.feed.PojoFeed;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.FieldMap;
-import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.POST;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
+import retrofit2.http.GET;
+import retrofit2.http.Header;
 
-public class ApiOauth {
+public class ApiMusic {
     public interface Api {
-        @FormUrlEncoded
-        @POST("token")
-        Call<ApiPojoToken> login(@FieldMap Map<String, String> body);
+        @GET("feed")
+        Call<PojoFeed> getFeed(@Header("Authorization") String authorization);
     }
 
-    private static String urlBase = "https://oauth.yandex.ru/";
+    private static String urlBase = "https://api.music.yandex.net/";
     private static Retrofit retrofit;
     private static Api api;
 
-    public static Api getInstance() {
-        if (retrofit == null) {
+    public static Api getInstance(){
+        if(retrofit == null) {
             retrofit = new Retrofit.Builder()
+                    .addConverterFactory(ScalarsConverterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create())
                     .baseUrl(urlBase)
                     .build();
