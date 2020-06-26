@@ -52,7 +52,7 @@ public class Splash extends AppCompatActivity {
                     final String accountName = bundle.getString(AccountManager.KEY_ACCOUNT_NAME);
 
                     //получем сам акаунт и сохраняем
-                    App.getInstance().setAccount(AccountUtils.getAccount(Splash.this, accountName));
+                    App.setAccount(AccountUtils.getAccount(Splash.this, accountName));
 
                     startActivity(new Intent(Splash.this, Main.class));
                     finish();

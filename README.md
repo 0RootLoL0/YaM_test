@@ -1,44 +1,31 @@
 # YaM
-Кастомный клиент Yandex Music
 
- implementation fileTree(dir: 'libs', include: ['*.jar'])
+![signbot](https://i.imgur.com/TJK99nv.gif)
 
-    implementation 'androidx.appcompat:appcompat:1.0.2'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    releaseImplementation 'androidx.annotation:annotation:1.1.0'
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
-    implementation 'com.google.android.material:material:1.0.0'
-    implementation 'com.bluelinelabs:conductor:2.1.5'
-    implementation 'com.bluelinelabs:conductor-support:2.1.4'
-    implementation "android.arch.persistence.room:runtime:1.0.0"
-    annotationProcessor "android.arch.persistence.room:compiler:1.0.0"
-    implementation 'com.google.code.gson:gson:2.8.6'
-    implementation 'com.squareup.okhttp3:okhttp:3.6.0'
-    implementation 'org.videolan.android:libvlc-all:3.1.12'
-    //noinspection GradleCompatible
-    implementation 'com.android.support:support-v4:28.0.0'
-    implementation 'androidx.palette:palette:1.0.0'
-    implementation 'com.android.support:support-media-compat:26.+'
+проект не претендует на право быть лучшим, но стремиться к этому.
 
-    compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1'
+> **...Просто у него были свои идеи о том, как должен выглядеть мир, и он был достаточно могущественным, чтобы попытаться осуществить их.**
+> из книги "Кольца детей Ауле"
 
-    implementation "androidx.legacy:legacy-support-v4:1.0.0"
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.annotation:annotation:1.1.0'
-    implementation 'com.google.android.exoplayer:exoplayer-core:2.9.4'
-    implementation 'com.google.android.exoplayer:extension-okhttp:2.9.4'
+## плюсы
+  - управление видимостью (не реализовано)
+  - удобный интерфейс (субъективно; реализовано не полностью)
+  - скачиванье треков (не реализовано)
+  - жесты (не реализовано)
+  - собственные темы (не реализовано)
+  - удобный виджет (субъективно; реализовано не полностью)
+  
+## License
+```
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-    implementation "android.arch.paging:runtime:1.0.0"
-    implementation 'com.github.bumptech.glide:glide:4.6.1'
-    implementation 'com.squareup.retrofit2:retrofit:2.8.1'
-    implementation 'com.squareup.retrofit2:converter-gson:2.8.1'
-    implementation 'com.squareup.retrofit2:converter-scalars:2.8.1'
-    implementation project(path: ':YaMApiLib')
+     http://www.apache.org/licenses/LICENSE-2.0
 
-    
-    implementation 'com.squareup.retrofit2:retrofit:2.8.1'
-    implementation 'com.squareup.retrofit2:converter-gson:2.8.1'
-    implementation 'com.squareup.retrofit2:converter-scalars:2.8.1'# android-_app_YaM
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+```

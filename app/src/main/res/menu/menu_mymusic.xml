@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright © 2020 . Lorem Popov Vasily.
+  ~ Licensed under the GNU GPL, Version 3
+  -->
+
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/m_mymusic_settings"
+        android:checkable="false"
+        android:icon="@drawable/ic_settings_black_24dp"
+        android:title="settings"
+        app:showAsAction="ifRoom" />
+</menu>

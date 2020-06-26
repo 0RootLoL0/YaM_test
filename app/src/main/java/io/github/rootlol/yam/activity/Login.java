@@ -30,6 +30,7 @@ import io.github.rootlol.yandexoauth.pojo.ApiPojoToken;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import android.provider.Settings;
 
 public class Login extends AccountAuthenticatorActivity {
 
@@ -39,7 +40,6 @@ public class Login extends AccountAuthenticatorActivity {
     public static final String PARAM_USER_PASSWORD = "password";
 
     private AccountManager mAccountManager;
-
     private EditText mLogin;
     private EditText mPassword;
     private Button mSignInButton;
