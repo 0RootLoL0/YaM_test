@@ -45,7 +45,7 @@ public class FeedSubHome extends Controller implements SwipeRefreshLayout.OnRefr
         SRL.setRefreshing(true);
         FeedAdapter adapter = new FeedAdapter();
         adapter.getItemListener().setOnClickListenerGeneratedPlaylists(null);
-        LiveData<PagedList<FeedAdapterInterface>> pagedListLiveData = new LivePagedListBuilder<>(new FeedDataSourseFactory(NetTool.isOnline(getApplicationContext()), SRL), App.getConfig()).build();
+        LiveData<PagedList<FeedAdapterInterface>> pagedListLiveData = new LivePagedListBuilder<>(new FeedDataSourseFactory(NetTool.isOnline(getApplicationContext()), SRL, getApplicationContext()), App.getConfig()).build();
         pagedListLiveData.observe((AppCompatActivity) getActivity(), new Observer<PagedList<FeedAdapterInterface>>() {
             @Override
             public void onChanged(@Nullable PagedList<FeedAdapterInterface> playlistListInterfaces) {

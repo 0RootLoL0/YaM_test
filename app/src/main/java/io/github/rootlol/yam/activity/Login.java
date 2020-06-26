@@ -77,7 +77,7 @@ public class Login extends AccountAuthenticatorActivity {
 
                                 res.putExtra(AccountManager.KEY_ACCOUNT_NAME, mLogin.getText().toString());
                                 res.putExtra(AccountManager.KEY_ACCOUNT_TYPE, AccountUtils.ACCOUNT_TYPE);
-                                res.putExtra(AccountManager.KEY_AUTHTOKEN, response.body().getAccessToken());
+                                res.putExtra(AccountManager.KEY_AUTHTOKEN, "OAuth " + response.body().getAccessToken());
                                 res.putExtra(PARAM_USER_PASSWORD, mPassword.getText().toString());
 
                                 finishLogin(res);
