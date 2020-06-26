@@ -1,58 +1,40 @@
 
-package io.github.rootlol.yandexmusic.pojo.feed;
+package io.github.rootlol.yandexmusic.pojo.user.playlist.list;
 
 import java.util.List;
 import javax.annotation.Generated;
 import com.google.gson.annotations.SerializedName;
 
 import io.github.rootlol.yandexmusic.pojo.Owner;
+import io.github.rootlol.yandexmusic.pojo.user.playlist.Cover;
+
 
 @Generated("net.hexar.json2pojo")
 @SuppressWarnings("unused")
-public class Data {
+public class Result {
 
-    @SerializedName("animatedCoverUri")
-    private String mAnimatedCoverUri;
     @SerializedName("available")
     private Boolean mAvailable;
     @SerializedName("collective")
     private Boolean mCollective;
     @SerializedName("cover")
     private Cover mCover;
-    @SerializedName("coverWithoutText")
-    private CoverWithoutText mCoverWithoutText;
     @SerializedName("created")
     private String mCreated;
-    @SerializedName("description")
-    private String mDescription;
-    @SerializedName("descriptionFormatted")
-    private String mDescriptionFormatted;
     @SerializedName("durationMs")
     private Long mDurationMs;
-    @SerializedName("everPlayed")
-    private Boolean mEverPlayed;
-    @SerializedName("generatedPlaylistType")
-    private String mGeneratedPlaylistType;
-    @SerializedName("idForFrom")
-    private String mIdForFrom;
     @SerializedName("isBanner")
     private Boolean mIsBanner;
     @SerializedName("isPremiere")
     private Boolean mIsPremiere;
     @SerializedName("kind")
     private Long mKind;
-    @SerializedName("madeFor")
-    private MadeFor mMadeFor;
     @SerializedName("modified")
     private String mModified;
     @SerializedName("ogImage")
     private String mOgImage;
-    @SerializedName("ogTitle")
-    private String mOgTitle;
     @SerializedName("owner")
     private Owner mOwner;
-    @SerializedName("playCounter")
-    private PlayCounter mPlayCounter;
     @SerializedName("prerolls")
     private List<Object> mPrerolls;
     @SerializedName("revision")
@@ -65,22 +47,10 @@ public class Data {
     private String mTitle;
     @SerializedName("trackCount")
     private Long mTrackCount;
-    @SerializedName("tracks")
-    private List<Track> mTracks;
     @SerializedName("uid")
     private Long mUid;
-    @SerializedName("urlPart")
-    private String mUrlPart;
     @SerializedName("visibility")
     private String mVisibility;
-
-    public String getAnimatedCoverUri() {
-        return mAnimatedCoverUri;
-    }
-
-    public void setAnimatedCoverUri(String animatedCoverUri) {
-        mAnimatedCoverUri = animatedCoverUri;
-    }
 
     public Boolean getAvailable() {
         return mAvailable;
@@ -106,14 +76,6 @@ public class Data {
         mCover = cover;
     }
 
-    public CoverWithoutText getCoverWithoutText() {
-        return mCoverWithoutText;
-    }
-
-    public void setCoverWithoutText(CoverWithoutText coverWithoutText) {
-        mCoverWithoutText = coverWithoutText;
-    }
-
     public String getCreated() {
         return mCreated;
     }
@@ -122,52 +84,12 @@ public class Data {
         mCreated = created;
     }
 
-    public String getDescription() {
-        return mDescription;
-    }
-
-    public void setDescription(String description) {
-        mDescription = description;
-    }
-
-    public String getDescriptionFormatted() {
-        return mDescriptionFormatted;
-    }
-
-    public void setDescriptionFormatted(String descriptionFormatted) {
-        mDescriptionFormatted = descriptionFormatted;
-    }
-
     public Long getDurationMs() {
         return mDurationMs;
     }
 
     public void setDurationMs(Long durationMs) {
         mDurationMs = durationMs;
-    }
-
-    public Boolean getEverPlayed() {
-        return mEverPlayed;
-    }
-
-    public void setEverPlayed(Boolean everPlayed) {
-        mEverPlayed = everPlayed;
-    }
-
-    public String getGeneratedPlaylistType() {
-        return mGeneratedPlaylistType;
-    }
-
-    public void setGeneratedPlaylistType(String generatedPlaylistType) {
-        mGeneratedPlaylistType = generatedPlaylistType;
-    }
-
-    public String getIdForFrom() {
-        return mIdForFrom;
-    }
-
-    public void setIdForFrom(String idForFrom) {
-        mIdForFrom = idForFrom;
     }
 
     public Boolean getIsBanner() {
@@ -194,14 +116,6 @@ public class Data {
         mKind = kind;
     }
 
-    public MadeFor getMadeFor() {
-        return mMadeFor;
-    }
-
-    public void setMadeFor(MadeFor madeFor) {
-        mMadeFor = madeFor;
-    }
-
     public String getModified() {
         return mModified;
     }
@@ -218,28 +132,12 @@ public class Data {
         mOgImage = ogImage;
     }
 
-    public String getOgTitle() {
-        return mOgTitle;
-    }
-
-    public void setOgTitle(String ogTitle) {
-        mOgTitle = ogTitle;
-    }
-
     public Owner getOwner() {
         return mOwner;
     }
 
     public void setOwner(Owner owner) {
         mOwner = owner;
-    }
-
-    public PlayCounter getPlayCounter() {
-        return mPlayCounter;
-    }
-
-    public void setPlayCounter(PlayCounter playCounter) {
-        mPlayCounter = playCounter;
     }
 
     public List<Object> getPrerolls() {
@@ -290,28 +188,12 @@ public class Data {
         mTrackCount = trackCount;
     }
 
-    public List<Track> getTracks() {
-        return mTracks;
-    }
-
-    public void setTracks(List<Track> tracks) {
-        mTracks = tracks;
-    }
-
     public Long getUid() {
         return mUid;
     }
 
     public void setUid(Long uid) {
         mUid = uid;
-    }
-
-    public String getUrlPart() {
-        return mUrlPart;
-    }
-
-    public void setUrlPart(String urlPart) {
-        mUrlPart = urlPart;
     }
 
     public String getVisibility() {

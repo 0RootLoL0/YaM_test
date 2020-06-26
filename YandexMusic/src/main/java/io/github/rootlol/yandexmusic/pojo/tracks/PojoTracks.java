@@ -1,6 +1,7 @@
 
-package io.github.rootlol.yandexmusic.pojo.feed;
+package io.github.rootlol.yandexmusic.pojo.tracks;
 
+import java.util.List;
 import javax.annotation.Generated;
 import com.google.gson.annotations.SerializedName;
 
@@ -8,12 +9,12 @@ import io.github.rootlol.yandexmusic.pojo.InvocationInfo;
 
 @Generated("net.hexar.json2pojo")
 @SuppressWarnings("unused")
-public class PojoFeed {
+public class PojoTracks {
 
     @SerializedName("invocationInfo")
     private InvocationInfo mInvocationInfo;
     @SerializedName("result")
-    private Result mResult;
+    private List<Result> mResult;
 
     public InvocationInfo getInvocationInfo() {
         return mInvocationInfo;
@@ -23,11 +24,11 @@ public class PojoFeed {
         mInvocationInfo = invocationInfo;
     }
 
-    public Result getResult() {
+    public List<Result> getResult() {
         return mResult;
     }
 
-    public void setResult(Result result) {
+    public void setResult(List<Result> result) {
         mResult = result;
     }
 
