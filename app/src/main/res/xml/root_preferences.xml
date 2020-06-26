@@ -1,0 +1,44 @@
+<!--
+  ~ Copyright © 2020 . Lorem Popov Vasily.
+  ~ Licensed under the GNU GPL, Version 3
+  -->
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:custom="http://schemas.android.com/tools">
+
+    <PreferenceCategory app:title="users">
+
+        <Preference android:title="add user" android:key="add_user"/>
+
+        <Preference android:title="del user" android:key="del_user"/>
+
+    </PreferenceCategory>
+    <PreferenceCategory app:title="pagination">
+
+        <de.mrapp.android.preference.NumberPickerPreference
+            android:defaultValue="10"
+            android:dialogMessage="эта настройка отвечает за количество элементов подгружаемые за один раз"
+            android:key="quantity_item"
+            android:summary="эта настройка отвечает за количество элементов подгружаемые за один раз"
+            android:title="количество элеменитов"
+            android:max="100"
+            custom:unit="tring/unit"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="about">
+
+        <Preference android:title="Github" >
+            <intent android:action="android.intent.action.VIEW"
+                android:data="https://github.com/0RootLoL0/YaM" />
+        </Preference>
+
+        <Preference android:title="Home Page" >
+            <intent android:action="android.intent.action.VIEW"
+                android:data="https://0rootlol0.github.io/" />
+        </Preference>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

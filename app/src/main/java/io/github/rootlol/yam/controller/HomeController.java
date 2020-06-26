@@ -28,10 +28,13 @@ public class HomeController extends Controller {
     private TabLayout tabLayout;
     private ViewPager viewPager;
 
+    private static HomeController intens;
+
     private final RouterPagerAdapter pagerAdapter;
     private static final int[] TAB_TITLES = new int[]{R.string.tab_feed, R.string.tab_radio, R.string.tab_mymusic, R.string.tab_search};
 
     public HomeController() {
+        intens = this;
         this.pagerAdapter = new RouterPagerAdapter(this) {
             @Override
             public void configureRouter(@NonNull Router router, int position) {
@@ -75,5 +78,9 @@ public class HomeController extends Controller {
         viewPager.setAdapter(pagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
         return view;
+    }
+
+    public static HomeController getIntens() {
+        return intens;
     }
 }
