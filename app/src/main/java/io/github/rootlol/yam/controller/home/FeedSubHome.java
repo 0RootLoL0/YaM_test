@@ -21,17 +21,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.bluelinelabs.conductor.Controller;
+import com.bluelinelabs.conductor.RouterTransaction;
 
 import io.github.rootlol.yam.App;
 import io.github.rootlol.yam.R;
 import io.github.rootlol.yam.adapter.feed.FeedAdapter;
 import io.github.rootlol.yam.adapter.feed.FeedAdapterInterface;
 import io.github.rootlol.yam.adapter.feed.FeedDataSourseFactory;
+import io.github.rootlol.yam.controller.HomeController;
+import io.github.rootlol.yam.controller.TrackeController;
 import io.github.rootlol.yam.tools.NetTool;
+import io.github.rootlol.yandexmusic.pojo.feed.GeneratedPlaylist;
 
 public class FeedSubHome extends Controller implements SwipeRefreshLayout.OnRefreshListener, FeedAdapter.onClickFeed.onClickListenerFeed{
 
-    private SwipeRefreshLayout SRL;
+    private static SwipeRefreshLayout SRL;
     private RecyclerView PRV;
 
     protected View onCreateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container) {
@@ -44,7 +48,7 @@ public class FeedSubHome extends Controller implements SwipeRefreshLayout.OnRefr
     private void setView(){
         SRL.setRefreshing(true);
         FeedAdapter adapter = new FeedAdapter();
-        adapter.getItemListener().setOnClickListenerGeneratedPlaylists(null);
+        adapter.getItemListener().setOnClickListenerGeneratedPlaylists(this);
         LiveData<PagedList<FeedAdapterInterface>> pagedListLiveData = new LivePagedListBuilder<>(new FeedDataSourseFactory(NetTool.isOnline(getApplicationContext()), SRL, getApplicationContext()), App.getConfig()).build();
         pagedListLiveData.observe((AppCompatActivity) getActivity(), new Observer<PagedList<FeedAdapterInterface>>() {
             @Override
@@ -62,6 +66,11 @@ public class FeedSubHome extends Controller implements SwipeRefreshLayout.OnRefr
         PRV.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         PRV.setHasFixedSize(true);
     }
+
+    public static void setSRL(boolean www){
+        if (SRL != null) SRL.setRefreshing(www);
+    }
+
     //implement
 
     //SwipeRefreshLayout
@@ -74,11 +83,11 @@ public class FeedSubHome extends Controller implements SwipeRefreshLayout.OnRefr
     //FeedAdapter
     // - generatedPlaylists
     @Override
-    public void onItemGeneratedPlaylistsClick(Object model, int position) {
-
+    public void onItemGeneratedPlaylistsClick(GeneratedPlaylist model, int position) {
+        HomeController.getIntens().getRouter().pushController(RouterTransaction.with(new TrackeController(model)));
     }
     @Override
-    public void onItemSettingsGeneratedPlaylistsClick(Object model, int position) {
+    public void onItemSettingsGeneratedPlaylistsClick(GeneratedPlaylist model, int position) {
 
     }
 }

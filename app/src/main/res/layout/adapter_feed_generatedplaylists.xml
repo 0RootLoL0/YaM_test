@@ -4,70 +4,53 @@
   ~ Licensed under the GNU GPL, Version 3
   -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ad_feed_gplaylist_mcv_card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="8dp">
+    android:layout_margin="8dp"
+    app:cardCornerRadius="8dp">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cv"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardBackgroundColor="@color/colorBgPlaylist"
-        app:cardCornerRadius="16dp">
+        android:orientation="horizontal">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <ImageView
+            android:id="@+id/ad_feed_gplaylist_iv_cover"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:cropToPadding="false"
+            app:srcCompat="@drawable/ic_launcher_background" />
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="16dp">
 
-            <ImageView
-                android:id="@+id/ad_feed_gplaylist_iv_cover"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0"
-                tools:srcCompat="@tools:sample/avatars[2]" />
-
+            <!-- Title, secondary and supporting text -->
             <TextView
                 android:id="@+id/ad_feed_gplaylist_tv_lable"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="24dp"
-                android:textColor="@color/colorLablePlaylist"
-                android:textSize="18sp"
-                app:layout_constraintStart_toEndOf="@+id/ad_feed_gplaylist_iv_cover"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:text="Headline 5"
+                android:textAppearance="?attr/textAppearanceHeadline6"
+                android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/ad_feed_gplaylist_info"
+                android:id="@+id/ad_feed_gplaylist_tv_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginBottom="24dp"
-                android:textColor="@color/colorColTimePlaylist"
-                android:textStyle="normal"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/ad_feed_gplaylist_iv_cover" />
+                android:layout_marginTop="8dp"
+                android:text="Greyhound divisively hello"
+                android:textAppearance="?attr/textAppearanceBody2"
+                android:textColor="?android:attr/textColorSecondary"
+                android:textSize="12sp" />
 
-            <ImageButton
-                android:id="@+id/ad_feed_gplaylist_ib_share"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:background="@color/colorNonBg"
-                android:src="@drawable/ic_share_black_24dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+        </LinearLayout>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
-</LinearLayout>
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

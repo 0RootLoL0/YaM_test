@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.AsyncDifferConfig;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import io.github.rootlol.yandexmusic.pojo.feed.GeneratedPlaylist;
+
 public class FeedAdapter extends PagedListAdapter<FeedAdapterInterface, RecyclerView.ViewHolder> {
     private onClickFeed ItemListener;
     private static DiffUtil.ItemCallback<FeedAdapterInterface> DIFF_CALLBACK = new DiffUtil.ItemCallback<FeedAdapterInterface>() {
@@ -64,32 +66,19 @@ public class FeedAdapter extends PagedListAdapter<FeedAdapterInterface, Recycler
     public static class onClickFeed{
 
         public interface onClickListenerFeed {
-            void onItemGeneratedPlaylistsClick(Object model, int position);
-            void onItemSettingsGeneratedPlaylistsClick(Object model, int position);
+            void onItemGeneratedPlaylistsClick(GeneratedPlaylist model, int position);
+            void onItemSettingsGeneratedPlaylistsClick(GeneratedPlaylist model, int position);
         }
-        public interface onClickListenerTrack{
-            void onItemTrackClick(Object model, int position);
-            void onSettingsItemTrackClick(Object model, int position);
-            void onSmartButtonItemTrackClick(Object model, int position);
-        }
+
 
         onClickListenerFeed onclicklistenerplaylist;
-        onClickListenerTrack onclicklistenertrack;
 
-        public onClickListenerFeed getOnclicklistenerplaylist() {
+        public onClickListenerFeed getOnclicklistenerGeneratedPlaylists() {
             return onclicklistenerplaylist;
         }
 
         public void setOnClickListenerGeneratedPlaylists(onClickListenerFeed onclicklistenerplaylist) {
             this.onclicklistenerplaylist = onclicklistenerplaylist;
-        }
-
-        public onClickListenerTrack getOnclicklistenertrack() {
-            return onclicklistenertrack;
-        }
-
-        public void setOnclicklistenertrack(onClickListenerTrack onclicklistenertrack) {
-            this.onclicklistenertrack = onclicklistenertrack;
         }
     }
 }

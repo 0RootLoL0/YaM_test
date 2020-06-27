@@ -21,6 +21,8 @@ public class Event {
     private String mType;
     @SerializedName("typeForFrom")
     private String mTypeForFrom;
+    @SerializedName("artist")
+    private Artist mArtist;
 
     public String getGenre() {
         return mGenre;
@@ -70,4 +72,11 @@ public class Event {
         mTypeForFrom = typeForFrom;
     }
 
+    public Artist getmArtist() {
+        return mArtist;
+    }
+
+    public void setmArtist(Artist mArtist) {
+        this.mArtist = mArtist;
+    }
 }
