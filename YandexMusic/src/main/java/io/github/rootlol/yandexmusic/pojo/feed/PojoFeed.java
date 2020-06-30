@@ -2,13 +2,14 @@
 package io.github.rootlol.yandexmusic.pojo.feed;
 
 import javax.annotation.Generated;
+
 import com.google.gson.annotations.SerializedName;
 
 import io.github.rootlol.yandexmusic.pojo.InvocationInfo;
 
 @Generated("net.hexar.json2pojo")
 @SuppressWarnings("unused")
-public class PojoFeed {
+public class PojoFeed  {
 
     @SerializedName("invocationInfo")
     private InvocationInfo mInvocationInfo;

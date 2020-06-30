@@ -3,7 +3,7 @@
  * Licensed under the GNU GPL, Version 3
  */
 
-package io.github.rootlol.yam.adapter.feed.item;
+package io.github.rootlol.yam.adapter.factory.feed.item;
 
 /*
  * "type": "recommended-tracks-by-artist-from-history"
@@ -11,25 +11,24 @@ package io.github.rootlol.yam.adapter.feed.item;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.card.MaterialCardView;
 import com.squareup.picasso.Picasso;
 
 import io.github.rootlol.yam.App;
 import io.github.rootlol.yam.R;
-import io.github.rootlol.yam.adapter.feed.FeedAdapter;
-import io.github.rootlol.yam.adapter.feed.FeedAdapterInterface;
+import io.github.rootlol.yam.adapter.YamAdapterInterface;
+import io.github.rootlol.yam.adapter.factory.feed.FeedVHFactory;
 import io.github.rootlol.yam.tools.RoundedTransformation;
 import io.github.rootlol.yandexmusic.pojo.feed.Event;
 import io.github.rootlol.yandexmusic.pojo.feed.Title;
 
-public class ItemDaysEventsRTBAFH implements FeedAdapterInterface {
+public class ItemDaysEventsRTBAFH implements YamAdapterInterface {
+
     private int position;
     private Event info;
 
@@ -57,7 +56,7 @@ public class ItemDaysEventsRTBAFH implements FeedAdapterInterface {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position, FeedAdapter.onClickFeed ItemListener) {
+    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position, Object ItemListener) {
         this.position = position;
         ((DaysEventsRTBAFHViewHolder) viewHolder).rtbafh_title.setText("");
         Picasso.with(App.getInstance())
@@ -71,7 +70,7 @@ public class ItemDaysEventsRTBAFH implements FeedAdapterInterface {
 
     @Override
     public int getType() {
-        return FeedAdapterInterface.DAYS_EVENTS_RTBAFH;
+        return FeedVHFactory.DAYS_EVENTS_RTBAFH;
     }
 
     @Override

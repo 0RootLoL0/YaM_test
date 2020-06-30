@@ -3,7 +3,7 @@
  * Licensed under the GNU GPL, Version 3
  */
 
-package io.github.rootlol.yam.adapter.feed.item;
+package io.github.rootlol.yam.adapter.factory.feed.item;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,12 +18,12 @@ import com.squareup.picasso.Picasso;
 
 import io.github.rootlol.yam.App;
 import io.github.rootlol.yam.R;
-import io.github.rootlol.yam.adapter.feed.FeedAdapter;
-import io.github.rootlol.yam.adapter.feed.FeedAdapterInterface;
+import io.github.rootlol.yam.adapter.YamAdapterInterface;
+import io.github.rootlol.yam.adapter.factory.feed.FeedVHFactory;
 import io.github.rootlol.yam.tools.RoundedTransformation;
 import io.github.rootlol.yandexmusic.pojo.feed.GeneratedPlaylist;
 
-public class ItemGeneratedplaylists implements FeedAdapterInterface {
+public class ItemGeneratedplaylists implements YamAdapterInterface {
     public GeneratedPlaylist info;
     public int position;
 
@@ -48,7 +48,7 @@ public class ItemGeneratedplaylists implements FeedAdapterInterface {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position, FeedAdapter.onClickFeed ItemListener) {
+    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position, Object ItemListener) {
         this.position = position;
         Picasso.with(App.getInstance())
                 .load("https://"+info.getData().getOgImage().replace("%%", "200x200"))
@@ -61,14 +61,14 @@ public class ItemGeneratedplaylists implements FeedAdapterInterface {
         ((GeneratedplaylistsViewHolder) viewHolder).itemTrack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ItemListener.getOnclicklistenerGeneratedPlaylists().onItemGeneratedPlaylistsClick(info, position);
+                //ItemListener.getOnclicklistenerGeneratedPlaylists().onItemGeneratedPlaylistsClick(info, position);
             }
         });
     }
 
     @Override
     public int getType() {
-        return FeedAdapterInterface.GENERATEDPLAYLISTS;
+        return FeedVHFactory.GENERATEDPLAYLISTS;
     }
 
     @Override

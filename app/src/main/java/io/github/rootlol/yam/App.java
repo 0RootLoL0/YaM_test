@@ -10,18 +10,12 @@ import android.app.Application;
 
 import androidx.paging.PagedList;
 
-import java.util.List;
-
-import io.github.rootlol.yam.adapter.feed.FeedAdapterInterface;
-import io.github.rootlol.yandexmusic.pojo.feed.PojoFeed;
-
 public class App extends Application {
     public static String APP_ID = "YaM";
 
     public static App instance;
     private Account account;
     private PagedList.Config config;
-    private List<FeedAdapterInterface> pojoFeed;
 
     @Override
     public void onCreate() {
@@ -30,7 +24,6 @@ public class App extends Application {
         config = new PagedList.Config.Builder()
                 .setEnablePlaceholders(false)
                 .setPageSize(getSharedPreferences("settings", MODE_PRIVATE).getInt("LIMIT", 10))
-                //.setPageSize(10)
                 .build();
     }
 
@@ -50,11 +43,4 @@ public class App extends Application {
         return instance.config;
     }
 
-    public static List<FeedAdapterInterface> getTempFeed() {
-        return instance.pojoFeed;
-    }
-
-    public static void setTempFeed(List<FeedAdapterInterface> pojoFeed) {
-        instance.pojoFeed = pojoFeed;
-    }
 }

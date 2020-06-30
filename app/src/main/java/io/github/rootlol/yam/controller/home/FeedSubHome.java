@@ -10,30 +10,18 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
-import androidx.paging.LivePagedListBuilder;
-import androidx.paging.PagedList;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.bluelinelabs.conductor.Controller;
-import com.bluelinelabs.conductor.RouterTransaction;
 
-import io.github.rootlol.yam.App;
 import io.github.rootlol.yam.R;
-import io.github.rootlol.yam.adapter.feed.FeedAdapter;
-import io.github.rootlol.yam.adapter.feed.FeedAdapterInterface;
-import io.github.rootlol.yam.adapter.feed.FeedDataSourseFactory;
-import io.github.rootlol.yam.controller.HomeController;
-import io.github.rootlol.yam.controller.TrackeController;
-import io.github.rootlol.yam.tools.NetTool;
-import io.github.rootlol.yandexmusic.pojo.feed.GeneratedPlaylist;
+import io.github.rootlol.yam.adapter.YamAdapter;
+import io.github.rootlol.yam.adapter.factory.feed.FeedDSFactory;
 
-public class FeedSubHome extends Controller implements SwipeRefreshLayout.OnRefreshListener, FeedAdapter.onClickFeed.onClickListenerFeed{
+public class FeedSubHome extends Controller implements SwipeRefreshLayout.OnRefreshListener{
 
     private static SwipeRefreshLayout SRL;
     private RecyclerView PRV;
@@ -47,15 +35,7 @@ public class FeedSubHome extends Controller implements SwipeRefreshLayout.OnRefr
 
     private void setView(){
         SRL.setRefreshing(true);
-        FeedAdapter adapter = new FeedAdapter();
-        adapter.getItemListener().setOnClickListenerGeneratedPlaylists(this);
-        LiveData<PagedList<FeedAdapterInterface>> pagedListLiveData = new LivePagedListBuilder<>(new FeedDataSourseFactory(NetTool.isOnline(getApplicationContext()), SRL, getApplicationContext()), App.getConfig()).build();
-        pagedListLiveData.observe((AppCompatActivity) getActivity(), new Observer<PagedList<FeedAdapterInterface>>() {
-            @Override
-            public void onChanged(@Nullable PagedList<FeedAdapterInterface> playlistListInterfaces) {
-                adapter.submitList(playlistListInterfaces);
-            }
-        });
+        YamAdapter adapter = new YamAdapter((AppCompatActivity) getActivity(), new FeedDSFactory(SRL, getApplicationContext()));
         PRV.setAdapter(adapter);
     }
 
@@ -82,12 +62,4 @@ public class FeedSubHome extends Controller implements SwipeRefreshLayout.OnRefr
 
     //FeedAdapter
     // - generatedPlaylists
-    @Override
-    public void onItemGeneratedPlaylistsClick(GeneratedPlaylist model, int position) {
-        HomeController.getIntens().getRouter().pushController(RouterTransaction.with(new TrackeController(model)));
-    }
-    @Override
-    public void onItemSettingsGeneratedPlaylistsClick(GeneratedPlaylist model, int position) {
-
-    }
 }
