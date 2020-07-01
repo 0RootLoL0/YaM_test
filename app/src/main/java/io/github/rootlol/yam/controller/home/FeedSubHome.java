@@ -17,9 +17,10 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.bluelinelabs.conductor.Controller;
 
+import io.github.rootlol.yam.App;
 import io.github.rootlol.yam.R;
-import io.github.rootlol.yam.adapter.YamAdapter;
-import io.github.rootlol.yam.adapter.factory.feed.FeedDSFactory;
+import io.github.rootlol.yamadapter.YamAdapter;
+import io.github.rootlol.yam.adapter.feed.FeedDSFactory;
 
 public class FeedSubHome extends Controller implements SwipeRefreshLayout.OnRefreshListener{
 
@@ -35,7 +36,7 @@ public class FeedSubHome extends Controller implements SwipeRefreshLayout.OnRefr
 
     private void setView(){
         SRL.setRefreshing(true);
-        YamAdapter adapter = new YamAdapter((AppCompatActivity) getActivity(), new FeedDSFactory(SRL, getApplicationContext()));
+        YamAdapter adapter = new YamAdapter((AppCompatActivity) getActivity(), new FeedDSFactory(SRL, getApplicationContext()), App.getConfig());
         PRV.setAdapter(adapter);
     }
 

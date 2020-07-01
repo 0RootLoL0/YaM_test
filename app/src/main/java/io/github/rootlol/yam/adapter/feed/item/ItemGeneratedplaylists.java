@@ -3,7 +3,7 @@
  * Licensed under the GNU GPL, Version 3
  */
 
-package io.github.rootlol.yam.adapter.factory.feed.item;
+package io.github.rootlol.yam.adapter.feed.item;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,14 +18,15 @@ import com.squareup.picasso.Picasso;
 
 import io.github.rootlol.yam.App;
 import io.github.rootlol.yam.R;
-import io.github.rootlol.yam.adapter.YamAdapterInterface;
-import io.github.rootlol.yam.adapter.factory.feed.FeedVHFactory;
+
+import io.github.rootlol.yam.adapter.feed.FeedVHFactory;
 import io.github.rootlol.yam.tools.RoundedTransformation;
+import io.github.rootlol.yamadapter.YamAdapterInterface;
 import io.github.rootlol.yandexmusic.pojo.feed.GeneratedPlaylist;
 
 public class ItemGeneratedplaylists implements YamAdapterInterface {
     public GeneratedPlaylist info;
-    public int position;
+    private int position;
 
     public static class GeneratedplaylistsViewHolder extends RecyclerView.ViewHolder {
 

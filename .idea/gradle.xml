@@ -10,6 +10,7 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/YaMAdapter" />
             <option value="$PROJECT_DIR$/YandexMusic" />
             <option value="$PROJECT_DIR$/YandexOauth" />
             <option value="$PROJECT_DIR$/app" />

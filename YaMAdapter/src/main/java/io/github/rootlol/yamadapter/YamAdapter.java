@@ -3,7 +3,7 @@
  * Licensed under the GNU GPL, Version 3
  */
 
-package io.github.rootlol.yam.adapter;
+package io.github.rootlol.yamadapter;
 
 import android.annotation.SuppressLint;
 import android.view.ViewGroup;
@@ -18,8 +18,6 @@ import androidx.paging.PagedList;
 import androidx.paging.PagedListAdapter;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
-
-import io.github.rootlol.yam.App;
 
 public class YamAdapter extends PagedListAdapter<YamAdapterInterface, RecyclerView.ViewHolder> {
     private static DiffUtil.ItemCallback<YamAdapterInterface> DIFF_CALLBACK = new DiffUtil.ItemCallback<YamAdapterInterface>() {
@@ -36,10 +34,10 @@ public class YamAdapter extends PagedListAdapter<YamAdapterInterface, RecyclerVi
     };
     private YamDataSourceFactory dataSourceFactory;
 
-    public YamAdapter(AppCompatActivity activity, YamDataSourceFactory dataSourceFactory ) {
+    public YamAdapter(AppCompatActivity activity, YamDataSourceFactory dataSourceFactory, PagedList.Config config ) {
         super(DIFF_CALLBACK);
         this.dataSourceFactory = dataSourceFactory;
-        LiveData<PagedList<YamAdapterInterface>> pagedListLiveData = new LivePagedListBuilder<>(dataSourceFactory, App.getConfig()).build();
+        LiveData<PagedList<YamAdapterInterface>> pagedListLiveData = new LivePagedListBuilder<>(dataSourceFactory, config).build();
         pagedListLiveData.observe(activity, new Observer<PagedList<YamAdapterInterface>>() {
             @Override
             public void onChanged(@Nullable PagedList<YamAdapterInterface> playlistListInterfaces) {

@@ -3,7 +3,7 @@
  * Licensed under the GNU GPL, Version 3
  */
 
-package io.github.rootlol.yam.adapter.factory.feed.item;
+package io.github.rootlol.yam.adapter.feed.item;
 
 /*
  * "type": "recommended-tracks-by-artist-from-history"
@@ -21,16 +21,16 @@ import com.squareup.picasso.Picasso;
 
 import io.github.rootlol.yam.App;
 import io.github.rootlol.yam.R;
-import io.github.rootlol.yam.adapter.YamAdapterInterface;
-import io.github.rootlol.yam.adapter.factory.feed.FeedVHFactory;
+import io.github.rootlol.yam.adapter.feed.FeedVHFactory;
 import io.github.rootlol.yam.tools.RoundedTransformation;
+import io.github.rootlol.yamadapter.YamAdapterInterface;
 import io.github.rootlol.yandexmusic.pojo.feed.Event;
 import io.github.rootlol.yandexmusic.pojo.feed.Title;
 
 public class ItemDaysEventsRTBAFH implements YamAdapterInterface {
 
     private int position;
-    private Event info;
+    public Event info;
 
     public static class DaysEventsRTBAFHViewHolder extends RecyclerView.ViewHolder {
 

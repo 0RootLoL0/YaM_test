@@ -3,7 +3,7 @@
  * Licensed under the GNU GPL, Version 3
  */
 
-package io.github.rootlol.yam.adapter.factory.feed;
+package io.github.rootlol.yam.adapter.feed;
 
 import android.accounts.AccountManager;
 import android.annotation.SuppressLint;
@@ -15,18 +15,20 @@ import androidx.paging.DataSource;
 import androidx.paging.PositionalDataSource;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import io.github.rootlol.yam.App;
 import io.github.rootlol.yam.account.AccountUtils;
-import io.github.rootlol.yam.adapter.YamAdapterInterface;
-import io.github.rootlol.yam.adapter.YamDataSourceFactory;
-import io.github.rootlol.yam.adapter.YamVHFactory;
-import io.github.rootlol.yam.adapter.factory.feed.item.ItemDaysEventsRTBAFH;
-import io.github.rootlol.yam.adapter.factory.feed.item.ItemGeneratedplaylists;
+import io.github.rootlol.yam.adapter.feed.item.ItemDaysEventsRTBAFH;
+import io.github.rootlol.yam.adapter.feed.item.ItemGeneratedplaylists;
 import io.github.rootlol.yam.controller.home.FeedSubHome;
+import io.github.rootlol.yam.tools.CacheTool;
 import io.github.rootlol.yam.tools.NetTool;
+import io.github.rootlol.yamadapter.YamAdapterInterface;
+import io.github.rootlol.yamadapter.YamDataSourceFactory;
+import io.github.rootlol.yamadapter.YamVHFactory;
 import io.github.rootlol.yandexmusic.ApiMusic;
 import io.github.rootlol.yandexmusic.pojo.feed.Event;
 import io.github.rootlol.yandexmusic.pojo.feed.GeneratedPlaylist;
@@ -85,6 +87,12 @@ public class FeedDSFactory extends YamDataSourceFactory {
 
                     //App.setTempFeed(tempList);
 
+                    try {
+                        CacheTool.setCache("feed.json", tempList, getVHFactory());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
                     List<YamAdapterInterface> qqq = new ArrayList<>();
                     for (int i = 0; i < params.pageSize; i++) {
                         qqq.add(tempList.get(i));
@@ -106,9 +114,14 @@ public class FeedDSFactory extends YamDataSourceFactory {
         @Override
         public void loadRange(@NonNull LoadRangeParams params, @NonNull LoadRangeCallback<YamAdapterInterface> callback) {
             List<YamAdapterInterface> tempList = new ArrayList<>();
-           /* for (int i = params.startPosition; i < params.startPosition+params.loadSize&&i<App.getTempFeed().size(); i++) {
-                tempList.add(App.getTempFeed().get(i));
-            }*/
+            try {
+                List<YamAdapterInterface> temp = CacheTool.getCache("feed.json", getVHFactory());
+                for (int i = params.startPosition; i < params.startPosition+params.loadSize && i<temp.size(); i++) {
+                    tempList.add(temp.get(i));
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             callback.onResult(tempList);
         }
     }

@@ -3,7 +3,7 @@
  * Licensed under the GNU GPL, Version 3
  */
 
-package io.github.rootlol.yam.adapter;
+package io.github.rootlol.yamadapter;
 
 import androidx.recyclerview.widget.RecyclerView;
 
