@@ -13,8 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +28,9 @@ public class FeedVHFactory implements YamVHFactory {
 
     public static final int GENERATEDPLAYLISTS = 0;
     public static final int DAYS_EVENTS_RTBAFH = 1;
+
+    ItemGeneratedplaylists.GeneratedplaylistOnClickListener generatedplaylistOnClickListener;
+    ItemDaysEventsRTBAFH.DaysEventsRTBAFHOnClickListener daysEventsRTBAFHOnClickListener;
 
     public RecyclerView.ViewHolder create(ViewGroup parent, int viewType) {
         switch (viewType) {
@@ -79,5 +80,24 @@ public class FeedVHFactory implements YamVHFactory {
             }
         }
         return temp;
+    }
+
+    @Override
+    public Object getOnClick(int typeItem) {
+        switch (typeItem){
+            case GENERATEDPLAYLISTS:
+                return generatedplaylistOnClickListener;
+            case DAYS_EVENTS_RTBAFH:
+                return daysEventsRTBAFHOnClickListener;
+        }
+        return null;
+    }
+
+    public void setGeneratedplaylistOnClickListener(ItemGeneratedplaylists.GeneratedplaylistOnClickListener generatedplaylistOnClickListener) {
+        this.generatedplaylistOnClickListener = generatedplaylistOnClickListener;
+    }
+
+    public void setDaysEventsRTBAFHOnClickListener(ItemDaysEventsRTBAFH.DaysEventsRTBAFHOnClickListener daysEventsRTBAFHOnClickListener) {
+        this.daysEventsRTBAFHOnClickListener = daysEventsRTBAFHOnClickListener;
     }
 }

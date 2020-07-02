@@ -8,6 +8,7 @@ package io.github.rootlol.yam.controller.home;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,13 +17,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.bluelinelabs.conductor.Controller;
+import com.bluelinelabs.conductor.RouterTransaction;
 
 import io.github.rootlol.yam.App;
 import io.github.rootlol.yam.R;
+import io.github.rootlol.yam.adapter.feed.FeedVHFactory;
+import io.github.rootlol.yam.adapter.feed.item.ItemGeneratedplaylists;
+import io.github.rootlol.yam.controller.HomeController;
+import io.github.rootlol.yam.controller.TrackeController;
 import io.github.rootlol.yamadapter.YamAdapter;
 import io.github.rootlol.yam.adapter.feed.FeedDSFactory;
 
-public class FeedSubHome extends Controller implements SwipeRefreshLayout.OnRefreshListener{
+public class FeedSubHome extends Controller implements SwipeRefreshLayout.OnRefreshListener, ItemGeneratedplaylists.GeneratedplaylistOnClickListener {
 
     private static SwipeRefreshLayout SRL;
     private RecyclerView PRV;
@@ -30,13 +36,15 @@ public class FeedSubHome extends Controller implements SwipeRefreshLayout.OnRefr
     protected View onCreateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container) {
         View view = inflater.inflate(R.layout.controller_home_feed, container, false);
         bind(view);
-        setView();
+        setView(false);
         return view;
     }
 
-    private void setView(){
+    private void setView(boolean refresh){
         SRL.setRefreshing(true);
-        YamAdapter adapter = new YamAdapter((AppCompatActivity) getActivity(), new FeedDSFactory(SRL, getApplicationContext()), App.getConfig());
+        FeedDSFactory feedDSFactory = new FeedDSFactory(getApplicationContext(), refresh);
+        ((FeedVHFactory) feedDSFactory.getVHFactory()).setGeneratedplaylistOnClickListener(this::onItemGeneratedplaylist);
+        YamAdapter adapter = new YamAdapter((AppCompatActivity) getActivity(), feedDSFactory, App.getConfig());
         PRV.setAdapter(adapter);
     }
 
@@ -58,9 +66,13 @@ public class FeedSubHome extends Controller implements SwipeRefreshLayout.OnRefr
     // - OnRefreshListener
     @Override
     public void onRefresh() {
-        setView();
+        setView(true);
     }
 
     //FeedAdapter
     // - generatedPlaylists
+    @Override
+    public void onItemGeneratedplaylist(ItemGeneratedplaylists model) {
+        HomeController.getIntens().getRouter().pushController(RouterTransaction.with(new TrackeController()));
+    }
 }

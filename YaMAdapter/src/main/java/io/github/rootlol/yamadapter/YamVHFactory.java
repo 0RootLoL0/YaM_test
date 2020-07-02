@@ -15,5 +15,5 @@ public interface YamVHFactory {
     RecyclerView.ViewHolder create(ViewGroup parent, int viewType) ;
     List<ItemDataCache> toDataCache(List<YamAdapterInterface> Listitem);
     List<YamAdapterInterface> toListData(List<ItemDataCache> Listitem);
-
+    Object getOnClick(int typeItem);
 }

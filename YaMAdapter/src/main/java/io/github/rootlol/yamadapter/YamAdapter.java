@@ -53,7 +53,7 @@ public class YamAdapter extends PagedListAdapter<YamAdapterInterface, RecyclerVi
     }
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        getItem(position).onBindViewHolder(holder, position, dataSourceFactory.getOnClick());
+        getItem(position).onBindViewHolder(holder, position, dataSourceFactory.getVHFactory().getOnClick(getItem(position).getType()));
     }
 
     @Nullable

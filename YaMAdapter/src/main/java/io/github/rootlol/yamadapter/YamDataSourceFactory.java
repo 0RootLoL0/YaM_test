@@ -9,5 +9,4 @@ import androidx.paging.DataSource;
 
 public abstract class YamDataSourceFactory extends DataSource.Factory {
     public abstract YamVHFactory getVHFactory();
-    public abstract Object getOnClick();
 }

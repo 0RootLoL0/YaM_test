@@ -33,8 +33,6 @@ import io.github.rootlol.yamadapter.YamVHFactory;
 
 public class CacheTool{
     public static void setCache(String typeCache, List<YamAdapterInterface> Listitem, YamVHFactory factory) throws IOException {
-        App.getInstance().deleteFile(typeCache+"*");
-
         File.createTempFile(typeCache, null, App.getInstance().getCacheDir());
         File cacheFile = new File(App.getInstance().getCacheDir(), typeCache);
         Log.i(App.APP_ID, "toCache: path"+cacheFile.getPath());
@@ -63,7 +61,7 @@ public class CacheTool{
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public static long getTimeCache(String typeCache){
+    public static boolean getTimeCache(String typeCache, long limit){
         File cacheFile = new File(App.getInstance().getCacheDir(), typeCache);
         BasicFileAttributes attributes = null;
         try {
@@ -71,6 +69,7 @@ public class CacheTool{
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return attributes.creationTime().to(TimeUnit.MILLISECONDS);
+        Date date = new Date();
+        return  date.getTime() - attributes.creationTime().to(TimeUnit.MILLISECONDS) >= limit;
     }
 }

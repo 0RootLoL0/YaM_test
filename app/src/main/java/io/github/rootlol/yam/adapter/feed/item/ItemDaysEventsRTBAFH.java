@@ -10,6 +10,7 @@ package io.github.rootlol.yam.adapter.feed.item;
  */
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -50,6 +51,9 @@ public class ItemDaysEventsRTBAFH implements YamAdapterInterface {
             rtbafh_info = itemView.findViewById(R.id.ad_feed_dayseventsrtbafh_tv_info);
         }
     }
+    public static interface DaysEventsRTBAFHOnClickListener {
+        void onItemDaysEventsRTBAFH(ItemDaysEventsRTBAFH model);
+    }
 
     public ItemDaysEventsRTBAFH(Event info) {
         this.info = info;
@@ -57,6 +61,7 @@ public class ItemDaysEventsRTBAFH implements YamAdapterInterface {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position, Object ItemListener) {
+        DaysEventsRTBAFHOnClickListener listener = (DaysEventsRTBAFHOnClickListener) ItemListener;
         this.position = position;
         ((DaysEventsRTBAFHViewHolder) viewHolder).rtbafh_title.setText("");
         Picasso.with(App.getInstance())
@@ -66,6 +71,12 @@ public class ItemDaysEventsRTBAFH implements YamAdapterInterface {
         for (Title titleI : info.getTitle()) {
             ((DaysEventsRTBAFHViewHolder) viewHolder).rtbafh_title.setText(((DaysEventsRTBAFHViewHolder) viewHolder).rtbafh_title.getText().toString()+titleI.getText());
         }
+        ((DaysEventsRTBAFHViewHolder) viewHolder).rtbafh_card.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onItemDaysEventsRTBAFH(ItemDaysEventsRTBAFH.this);
+            }
+        });
     }
 
     @Override

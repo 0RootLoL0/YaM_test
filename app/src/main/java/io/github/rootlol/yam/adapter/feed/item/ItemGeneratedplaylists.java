@@ -44,6 +44,10 @@ public class ItemGeneratedplaylists implements YamAdapterInterface {
         }
     }
 
+    public static interface GeneratedplaylistOnClickListener {
+        void onItemGeneratedplaylist(ItemGeneratedplaylists model);
+    }
+
     public ItemGeneratedplaylists(GeneratedPlaylist info) {
         this.info = info;
     }
@@ -51,6 +55,7 @@ public class ItemGeneratedplaylists implements YamAdapterInterface {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position, Object ItemListener) {
         this.position = position;
+        GeneratedplaylistOnClickListener listener = (GeneratedplaylistOnClickListener) ItemListener;
         Picasso.with(App.getInstance())
                 .load("https://"+info.getData().getOgImage().replace("%%", "200x200"))
                 .transform(new RoundedTransformation(16, 4))
@@ -58,11 +63,10 @@ public class ItemGeneratedplaylists implements YamAdapterInterface {
 
         ((GeneratedplaylistsViewHolder) viewHolder).trackLable.setText(info.getData().getTitle());
         ((GeneratedplaylistsViewHolder) viewHolder).trackType.setText(info.getData().getDescription());
-
         ((GeneratedplaylistsViewHolder) viewHolder).itemTrack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //ItemListener.getOnclicklistenerGeneratedPlaylists().onItemGeneratedPlaylistsClick(info, position);
+                listener.onItemGeneratedplaylist(ItemGeneratedplaylists.this);
             }
         });
     }

@@ -8,12 +8,13 @@ package io.github.rootlol.yam.adapter.feed;
 import android.accounts.AccountManager;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.Build;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.paging.DataSource;
 import androidx.paging.PositionalDataSource;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -38,31 +39,33 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class FeedDSFactory extends YamDataSourceFactory {
-    private SwipeRefreshLayout SRL;
     private Context context;
+    private boolean refresh;
+    private FeedVHFactory feedVHFactory;
 
-    public FeedDSFactory(SwipeRefreshLayout SRL, Context context) {
-        this.SRL = SRL;
+    public FeedDSFactory(Context context, boolean refresh) {
         this.context = context;
+        this.refresh = refresh;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public DataSource create() {
-        if (NetTool.isOnline(context)) { //TODO: add cashe cek
+        if (NetTool.isOnline(context) && refresh) {
             return new FeedDataSourseNet();
         }
-        FeedSubHome.setSRL(false);
+        if (NetTool.isOnline(context) && CacheTool.getTimeCache("feed.json", 300000)) {
+            return new FeedDataSourseNet();
+        }
         return new FeedDataSourseCache();
     }
 
     @Override
     public YamVHFactory getVHFactory() {
-        return new FeedVHFactory();
-    }
-
-    @Override
-    public Object getOnClick() {
-        return null;
+        if (feedVHFactory == null){
+            feedVHFactory = new FeedVHFactory();
+        }
+        return feedVHFactory;
     }
 
     public class FeedDataSourseNet extends PositionalDataSource<YamAdapterInterface> {
@@ -132,21 +135,30 @@ public class FeedDSFactory extends YamDataSourceFactory {
         @Override
         public void loadInitial(@NonNull LoadInitialParams params, @NonNull LoadInitialCallback<YamAdapterInterface> callback) {
             List<YamAdapterInterface> tempList = new ArrayList<>();
-            /*if (App.getTempFeed()!=null) {
-                for (int i = 0; i < params.pageSize; i++) {
-                    tempList.add(App.getTempFeed().get(i));
+            try {
+                List<YamAdapterInterface> temp = CacheTool.getCache("feed.json", getVHFactory());
+                for (int i = 0; i < params.pageSize && i<temp.size(); i++) {
+                    tempList.add(temp.get(i));
                 }
-            }*/
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            FeedSubHome.setSRL(false);
             callback.onResult(tempList, 0);
         }
 
         @Override
         public void loadRange(@NonNull LoadRangeParams params, @NonNull LoadRangeCallback<YamAdapterInterface> callback) {
-            //Log.i(App.APP_ID, "loadRange: "+App.getTempFeed().size());
             List<YamAdapterInterface> tempList = new ArrayList<>();
-/*            for (int i = params.startPosition; i < params.startPosition+params.loadSize&&i<App.getTempFeed().size(); i++) {
-                tempList.add(App.getTempFeed().get(i));
-            }*/
+            try {
+                List<YamAdapterInterface> temp = CacheTool.getCache("feed.json", getVHFactory());
+                for (int i = params.startPosition; i < params.startPosition+params.loadSize && i<temp.size(); i++) {
+                    tempList.add(temp.get(i));
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            FeedSubHome.setSRL(false);
             callback.onResult(tempList);
         }
     }
