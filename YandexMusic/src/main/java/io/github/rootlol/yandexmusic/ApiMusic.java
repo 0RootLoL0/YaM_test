@@ -6,9 +6,11 @@
 package io.github.rootlol.yandexmusic;
 
 import java.util.Map;
+import java.util.concurrent.Executor;
 
 import io.github.rootlol.yandexmusic.pojo.feed.PojoFeed;
 import io.github.rootlol.yandexmusic.pojo.rotor.stations.dashboard.PojoRotorStationsDashboard;
+import io.github.rootlol.yandexmusic.pojo.search.suggest.PojoSearchSuggest;
 import io.github.rootlol.yandexmusic.pojo.tracks.PojoTracks;
 import io.github.rootlol.yandexmusic.pojo.tracks.downloadinfo.PojoTracksDownloadInfo;
 import io.github.rootlol.yandexmusic.pojo.user.likes.tracks.PojoLikesTracks;
@@ -52,6 +54,9 @@ public class ApiMusic {
 
         @GET("rotor/stations/dashboard")
         Call<PojoRotorStationsDashboard> getRotorStationsDashboard(@Header("Authorization") String authorization);
+
+        @GET("/search/suggest")
+        Call<PojoSearchSuggest> getSearchSuggest(@Header("Authorization") String authorization, @Query("part") String part);
 
         @GET
         Call<String> downloadUrl(@Url String url);
