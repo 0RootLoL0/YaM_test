@@ -10,9 +10,11 @@ import android.app.Application;
 
 import androidx.paging.PagedList;
 
-import java.io.IOException;
-
-import io.github.rootlol.yam.tools.CacheTool;
+/**
+ * производим инициализацию и хранение данных
+ *
+ *
+ */
 
 public class App extends Application {
     public static String APP_ID = "YaM";

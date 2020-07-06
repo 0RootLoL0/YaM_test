@@ -34,7 +34,7 @@ public class MyMusicSubHome extends Controller implements Toolbar.OnMenuItemClic
     private void bind(View view){
 
         Toolbar toolbar = view.findViewById(R.id.c_home_mymusic_toolbar_setting);
-        toolbar.setTitle("musi");
+        toolbar.setTitle(R.string.tab_mymusic);
         toolbar.inflateMenu(R.menu.menu_mymusic);
         toolbar.setOnMenuItemClickListener(this);
     }

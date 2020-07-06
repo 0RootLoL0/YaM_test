@@ -3,7 +3,7 @@
  * Licensed under the GNU GPL, Version 3
  */
 
-package io.github.rootlol.yam.adapter.track;
+package io.github.rootlol.yam.adapter.radio;
 
 import android.view.ViewGroup;
 
@@ -15,13 +15,11 @@ import io.github.rootlol.yamadapter.ItemDataCache;
 import io.github.rootlol.yamadapter.YamAdapterInterface;
 import io.github.rootlol.yamadapter.YamVHFactory;
 
-public class TrackVHFactory implements YamVHFactory {
-
-    public final static int TRACK = 0;
-
+public class RadioVHFactory implements YamVHFactory {
+    public static final int STATION = 0;
     @Override
     public RecyclerView.ViewHolder create(ViewGroup parent, int viewType) {
-        return new ItemTrack.TrackViewHolder(parent);
+        return new ItemStation.StationsViewHolder(parent);
     }
 
     @Override

@@ -12,4 +12,19 @@
         <item name="android:windowBackground">@drawable/launch_screen</item>
     </style>
 
+    <style name="OverFlowButton">
+        <item name="srcCompat">@drawable/ic_more_vert_white_24dp</item>
+        <item name="android:layout_width">48dp</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:scaleType">center</item>
+        <item name="android:background">?attr/roundSelector</item>
+        <item name="android:focusableInTouchMode">false</item>
+        <item name="android:focusable">false</item>
+    </style>
+
+    <style name="TextViewSubtitle1" parent="TextAppearance.MaterialComponents.Subtitle1" />
+    <style name="TextViewSubtitle2" parent="TextAppearance.MaterialComponents.Subtitle2" />
+    <style name="TextViewHeadline6" parent="TextAppearance.MaterialComponents.Headline6" />
+
+
 </resources>

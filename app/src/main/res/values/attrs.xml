@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright © 2020 . Lorem Popov Vasily.
+  ~ Licensed under the GNU GPL, Version 3
+  -->
+
+<resources>
+    <attr name="roundSelector" format="reference" />
+    <attr name="rectSelector" format="reference" />
+</resources>

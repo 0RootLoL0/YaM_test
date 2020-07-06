@@ -7,11 +7,12 @@ package io.github.rootlol.yam.adapter.track;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.LinearLayout;
 
-import androidx.cardview.widget.CardView;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.textview.MaterialTextView;
 
 import io.github.rootlol.yam.App;
 import io.github.rootlol.yam.R;
@@ -23,10 +24,10 @@ public class ItemTrack implements YamAdapterInterface {
 
     public static class TrackViewHolder extends RecyclerView.ViewHolder {
 
-        public CardView track_card;
-        public ImageView track_cover;
-        public TextView track_lable;
-        public TextView track_info;
+        public LinearLayout track_card;
+        public AppCompatImageView track_cover;
+        public MaterialTextView track_lable;
+        public MaterialTextView track_info;
 
 
         public TrackViewHolder(ViewGroup parent) {
@@ -46,7 +47,7 @@ public class ItemTrack implements YamAdapterInterface {
 
     @Override
     public int getType() {
-        return 0;
+        return TrackVHFactory.TRACK;
     }
     @Override
     public int getPosition() {
