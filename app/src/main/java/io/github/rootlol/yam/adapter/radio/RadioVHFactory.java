@@ -11,15 +11,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import io.github.rootlol.yam.App;
 import io.github.rootlol.yamadapter.ItemDataCache;
 import io.github.rootlol.yamadapter.YamAdapterInterface;
 import io.github.rootlol.yamadapter.YamVHFactory;
+import io.github.rootlol.yamadapter.item.ItemStation;
 
 public class RadioVHFactory implements YamVHFactory {
-    public static final int STATION = 0;
     @Override
     public RecyclerView.ViewHolder create(ViewGroup parent, int viewType) {
-        return new ItemStation.StationsViewHolder(parent);
+        return new ItemStation.StationsViewHolder(parent, App.getInstance());
     }
 
     @Override

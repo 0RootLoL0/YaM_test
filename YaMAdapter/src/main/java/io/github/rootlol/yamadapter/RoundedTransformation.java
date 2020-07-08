@@ -3,7 +3,7 @@
  * Licensed under the GNU GPL, Version 3
  */
 
-package io.github.rootlol.yam.tools;
+package io.github.rootlol.yamadapter;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;

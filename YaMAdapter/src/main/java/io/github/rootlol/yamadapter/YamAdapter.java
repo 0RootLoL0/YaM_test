@@ -6,6 +6,7 @@
 package io.github.rootlol.yamadapter;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -33,10 +34,12 @@ public class YamAdapter extends PagedListAdapter<YamAdapterInterface, RecyclerVi
         }
     };
     private YamDataSourceFactory dataSourceFactory;
+    private Context mContext;
 
     public YamAdapter(AppCompatActivity activity, YamDataSourceFactory dataSourceFactory, PagedList.Config config ) {
         super(DIFF_CALLBACK);
         this.dataSourceFactory = dataSourceFactory;
+        mContext = activity.getApplicationContext();
         LiveData<PagedList<YamAdapterInterface>> pagedListLiveData = new LivePagedListBuilder<>(dataSourceFactory, config).build();
         pagedListLiveData.observe(activity, new Observer<PagedList<YamAdapterInterface>>() {
             @Override
@@ -53,7 +56,7 @@ public class YamAdapter extends PagedListAdapter<YamAdapterInterface, RecyclerVi
     }
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        getItem(position).onBindViewHolder(holder, position, dataSourceFactory.getVHFactory().getOnClick(getItem(position).getType()));
+        getItem(position).onBindViewHolder(holder, position, mContext, dataSourceFactory.getVHFactory().getOnClick(getItem(position).getType()));
     }
 
     @Nullable

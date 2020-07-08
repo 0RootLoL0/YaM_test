@@ -11,9 +11,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import io.github.rootlol.yam.App;
 import io.github.rootlol.yamadapter.ItemDataCache;
 import io.github.rootlol.yamadapter.YamAdapterInterface;
 import io.github.rootlol.yamadapter.YamVHFactory;
+import io.github.rootlol.yamadapter.item.ItemTrack;
 
 public class TrackVHFactory implements YamVHFactory {
 
@@ -21,7 +23,7 @@ public class TrackVHFactory implements YamVHFactory {
 
     @Override
     public RecyclerView.ViewHolder create(ViewGroup parent, int viewType) {
-        return new ItemTrack.TrackViewHolder(parent);
+        return new ItemTrack.TrackViewHolder(parent, App.getInstance());
     }
 
     @Override

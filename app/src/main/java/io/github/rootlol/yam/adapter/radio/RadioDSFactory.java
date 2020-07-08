@@ -8,6 +8,8 @@ package io.github.rootlol.yam.adapter.radio;
 import android.accounts.AccountManager;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
+import android.net.Uri;
 import android.view.View;
 import android.widget.Toast;
 
@@ -19,13 +21,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.github.rootlol.yam.App;
+import io.github.rootlol.yam.R;
 import io.github.rootlol.yam.account.AccountUtils;
 import io.github.rootlol.yam.controller.home.RadioSubHome;
 import io.github.rootlol.yamadapter.YamAdapterInterface;
 import io.github.rootlol.yamadapter.YamDataSourceFactory;
 import io.github.rootlol.yamadapter.YamVHFactory;
+import io.github.rootlol.yamadapter.item.ItemStation;
 import io.github.rootlol.yandexmusic.ApiMusic;
 import io.github.rootlol.yandexmusic.pojo.rotor.stations.dashboard.PojoRotorStationsDashboard;
+import io.github.rootlol.yandexmusic.pojo.rotor.stations.dashboard.PossibleValue;
 import io.github.rootlol.yandexmusic.pojo.rotor.stations.dashboard.Station;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -63,9 +68,27 @@ public class RadioDSFactory extends YamDataSourceFactory {
                 @Override
                 public void onResponse(Call<PojoRotorStationsDashboard> call, Response<PojoRotorStationsDashboard> response) {
                     List<YamAdapterInterface> temp = new ArrayList<>();
-
                     for (Station w: response.body().getResult().getStations()) {
-                        temp.add(new ItemStation(w));
+                        String lang = "";
+                        for (PossibleValue nn :w.getStation().getRestrictions().getLanguage().getPossibleValues()) {
+                            if (nn.getValue().equals(w.getSettings().getLanguage()))
+                                lang = nn.getName();
+                        }
+
+                        String diversity = "";
+                        for(PossibleValue qq:w.getStation().getRestrictions().getDiversity().getPossibleValues()) {
+                            if (qq.getValue().equals(w.getSettings().getDiversity()))
+                                diversity = qq.getName();
+                        }
+                        temp.add(new ItemStation(
+                                Uri.parse("https://" +w.getStation().getIcon().getImageUrl().replace("%%", "100x100")),
+                                Color.parseColor(w.getStation().getIcon().getBackgroundColor()),
+                                w.getStation().getName(),
+                                lang,
+                                w.getSettings().getMood(),
+                                w.getSettings().getEnergy(),
+                                diversity
+                        ));
                     }
                     data = temp;
                     List<YamAdapterInterface> tempList = new ArrayList<>();
@@ -80,7 +103,7 @@ public class RadioDSFactory extends YamDataSourceFactory {
 
                 @Override
                 public void onFailure(Call<PojoRotorStationsDashboard> call, Throwable t) {
-                    Toast.makeText(context, "error radio download", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, R.string.m_error_not_connect_net, Toast.LENGTH_LONG).show();
                 }
             });
         }

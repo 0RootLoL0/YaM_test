@@ -8,28 +8,24 @@ package io.github.rootlol.yam.adapter.feed;
 import android.accounts.AccountManager;
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.os.Build;
+import android.net.Uri;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.paging.DataSource;
 import androidx.paging.PositionalDataSource;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import io.github.rootlol.yam.App;
 import io.github.rootlol.yam.account.AccountUtils;
 import io.github.rootlol.yam.adapter.feed.item.ItemDaysEventsRTBAFH;
-import io.github.rootlol.yam.adapter.feed.item.ItemGeneratedplaylists;
 import io.github.rootlol.yam.controller.home.FeedSubHome;
-import io.github.rootlol.yam.tools.CacheTool;
-import io.github.rootlol.yam.tools.NetTool;
 import io.github.rootlol.yamadapter.YamAdapterInterface;
 import io.github.rootlol.yamadapter.YamDataSourceFactory;
 import io.github.rootlol.yamadapter.YamVHFactory;
+import io.github.rootlol.yamadapter.item.ItemPlaylist;
 import io.github.rootlol.yandexmusic.ApiMusic;
 import io.github.rootlol.yandexmusic.pojo.feed.Event;
 import io.github.rootlol.yandexmusic.pojo.feed.GeneratedPlaylist;
@@ -48,16 +44,9 @@ public class FeedDSFactory extends YamDataSourceFactory {
         this.refresh = refresh;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public DataSource create() {
-        if (NetTool.isOnline(context) && refresh) {
-            return new FeedDataSourseNet();
-        }
-        if (NetTool.isOnline(context) && CacheTool.getTimeCache("feed.json", 300000)) {
-            return new FeedDataSourseNet();
-        }
-        return new FeedDataSourseCache();
+        return new FeedDataSourseNet();
     }
 
     @Override
@@ -69,7 +58,7 @@ public class FeedDSFactory extends YamDataSourceFactory {
     }
 
     public class FeedDataSourseNet extends PositionalDataSource<YamAdapterInterface> {
-
+        List<YamAdapterInterface> tempLists;
         @SuppressLint("WrongThread")
         @Override
         public void loadInitial(@NonNull LoadInitialParams params, @NonNull LoadInitialCallback<YamAdapterInterface> Acallback) {
@@ -81,20 +70,19 @@ public class FeedDSFactory extends YamDataSourceFactory {
                     List<YamAdapterInterface> tempList = new ArrayList<>();
 
                     for (GeneratedPlaylist gplaylist: response.body().getResult().getGeneratedPlaylists()) {
-                        tempList.add(new ItemGeneratedplaylists(gplaylist));
+                        tempList.add(new ItemPlaylist(
+                                Uri.parse("https://"+gplaylist.getData().getOgImage().replace("%%", "200x200")),
+                                gplaylist.getData().getTitle(),
+                                gplaylist.getData().getDescription()
+                        ));
                     }
                     for (Event event: response.body().getResult().getDays().get(0).getEvents() ) {
                         if (event.getType().equals("recommended-tracks-by-artist-from-history"))
                         tempList.add(new ItemDaysEventsRTBAFH(event));
                     }
 
-                    //App.setTempFeed(tempList);
+                    tempLists = tempList;
 
-                    try {
-                        CacheTool.setCache("feed.json", tempList, getVHFactory());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
 
                     List<YamAdapterInterface> qqq = new ArrayList<>();
                     for (int i = 0; i < params.pageSize; i++) {
@@ -117,48 +105,9 @@ public class FeedDSFactory extends YamDataSourceFactory {
         @Override
         public void loadRange(@NonNull LoadRangeParams params, @NonNull LoadRangeCallback<YamAdapterInterface> callback) {
             List<YamAdapterInterface> tempList = new ArrayList<>();
-            try {
-                List<YamAdapterInterface> temp = CacheTool.getCache("feed.json", getVHFactory());
-                for (int i = params.startPosition; i < params.startPosition+params.loadSize && i<temp.size(); i++) {
-                    tempList.add(temp.get(i));
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
+            for (int i = params.startPosition; i < params.startPosition+params.loadSize && i<tempLists.size(); i++) {
+                tempList.add(tempLists.get(i));
             }
-            callback.onResult(tempList);
-        }
-    }
-
-    public class FeedDataSourseCache extends PositionalDataSource<YamAdapterInterface> {
-
-        @SuppressLint("WrongThread")
-        @Override
-        public void loadInitial(@NonNull LoadInitialParams params, @NonNull LoadInitialCallback<YamAdapterInterface> callback) {
-            List<YamAdapterInterface> tempList = new ArrayList<>();
-            try {
-                List<YamAdapterInterface> temp = CacheTool.getCache("feed.json", getVHFactory());
-                for (int i = 0; i < params.pageSize && i<temp.size(); i++) {
-                    tempList.add(temp.get(i));
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            FeedSubHome.setSRL(false);
-            callback.onResult(tempList, 0);
-        }
-
-        @Override
-        public void loadRange(@NonNull LoadRangeParams params, @NonNull LoadRangeCallback<YamAdapterInterface> callback) {
-            List<YamAdapterInterface> tempList = new ArrayList<>();
-            try {
-                List<YamAdapterInterface> temp = CacheTool.getCache("feed.json", getVHFactory());
-                for (int i = params.startPosition; i < params.startPosition+params.loadSize && i<temp.size(); i++) {
-                    tempList.add(temp.get(i));
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            FeedSubHome.setSRL(false);
             callback.onResult(tempList);
         }
     }

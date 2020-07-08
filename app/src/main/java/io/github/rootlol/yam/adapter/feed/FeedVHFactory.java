@@ -16,26 +16,25 @@ import com.google.gson.GsonBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.github.rootlol.yam.App;
 import io.github.rootlol.yam.adapter.feed.item.ItemDaysEventsRTBAFH;
-import io.github.rootlol.yam.adapter.feed.item.ItemGeneratedplaylists;
 import io.github.rootlol.yamadapter.ItemDataCache;
 import io.github.rootlol.yamadapter.YamAdapterInterface;
 import io.github.rootlol.yamadapter.YamVHFactory;
-import io.github.rootlol.yandexmusic.pojo.feed.Event;
-import io.github.rootlol.yandexmusic.pojo.feed.GeneratedPlaylist;
+import io.github.rootlol.yamadapter.item.ItemPlaylist;
 
 public class FeedVHFactory implements YamVHFactory {
 
-    public static final int GENERATEDPLAYLISTS = 0;
     public static final int DAYS_EVENTS_RTBAFH = 1;
 
-    ItemGeneratedplaylists.GeneratedplaylistOnClickListener generatedplaylistOnClickListener;
+    ItemPlaylist.PlaylistOnClickListener generatedplaylistOnClickListener;
     ItemDaysEventsRTBAFH.DaysEventsRTBAFHOnClickListener daysEventsRTBAFHOnClickListener;
+
 
     public RecyclerView.ViewHolder create(ViewGroup parent, int viewType) {
         switch (viewType) {
-            case GENERATEDPLAYLISTS:
-                return new ItemGeneratedplaylists.GeneratedplaylistsViewHolder(parent);
+            case YamAdapterInterface.PLAYLIST:
+                return new ItemPlaylist.PlaylistsViewHolder(parent, App.getInstance());
             case DAYS_EVENTS_RTBAFH:
                 return new ItemDaysEventsRTBAFH.DaysEventsRTBAFHViewHolder(parent);
             default:
@@ -46,46 +45,18 @@ public class FeedVHFactory implements YamVHFactory {
     @Override
     public List<ItemDataCache> toDataCache(List<YamAdapterInterface> Listitem) {
         List<ItemDataCache> temp = new ArrayList<>();
-        for (YamAdapterInterface yai: Listitem) {
-            ItemDataCache ww = new ItemDataCache();
-            ww.setType(yai.getType());
-            switch (yai.getType()){
-                case GENERATEDPLAYLISTS:
-                    ww.setInfo(((ItemGeneratedplaylists)yai).info);
-                    break;
-                case DAYS_EVENTS_RTBAFH:
-                    ww.setInfo( ((ItemDaysEventsRTBAFH) yai).info );
-                    break;
-            }
-            temp.add(ww);
-        }
         return temp;
     }
-
     @Override
     public List<YamAdapterInterface> toListData(List<ItemDataCache> Listitem) {
         List<YamAdapterInterface> temp = new ArrayList<>();
-        for (ItemDataCache idc: Listitem ) {
-            GsonBuilder builder = new GsonBuilder();
-            Gson gson = builder.create();
-            String string = gson.toJson(idc.getInfo());
-
-            switch (idc.getType()){
-                case GENERATEDPLAYLISTS:
-                    temp.add(new ItemGeneratedplaylists( gson.fromJson(string, GeneratedPlaylist.class) ));
-                    break;
-                case DAYS_EVENTS_RTBAFH:
-                    temp.add(new ItemDaysEventsRTBAFH( gson.fromJson(string, Event.class) ));
-                    break;
-            }
-        }
         return temp;
     }
 
     @Override
     public Object getOnClick(int typeItem) {
         switch (typeItem){
-            case GENERATEDPLAYLISTS:
+            case YamAdapterInterface.PLAYLIST:
                 return generatedplaylistOnClickListener;
             case DAYS_EVENTS_RTBAFH:
                 return daysEventsRTBAFHOnClickListener;
@@ -93,7 +64,7 @@ public class FeedVHFactory implements YamVHFactory {
         return null;
     }
 
-    public void setGeneratedplaylistOnClickListener(ItemGeneratedplaylists.GeneratedplaylistOnClickListener generatedplaylistOnClickListener) {
+    public void setGeneratedplaylistOnClickListener(ItemPlaylist.PlaylistOnClickListener generatedplaylistOnClickListener) {
         this.generatedplaylistOnClickListener = generatedplaylistOnClickListener;
     }
 

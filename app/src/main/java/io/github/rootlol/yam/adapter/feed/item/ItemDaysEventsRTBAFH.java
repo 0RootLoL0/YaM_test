@@ -9,6 +9,7 @@ package io.github.rootlol.yam.adapter.feed.item;
  * "type": "recommended-tracks-by-artist-from-history"
  */
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +24,7 @@ import com.squareup.picasso.Picasso;
 import io.github.rootlol.yam.App;
 import io.github.rootlol.yam.R;
 import io.github.rootlol.yam.adapter.feed.FeedVHFactory;
-import io.github.rootlol.yam.tools.RoundedTransformation;
+import io.github.rootlol.yamadapter.RoundedTransformation;
 import io.github.rootlol.yamadapter.YamAdapterInterface;
 import io.github.rootlol.yandexmusic.pojo.feed.Event;
 import io.github.rootlol.yandexmusic.pojo.feed.Title;
@@ -60,11 +61,11 @@ public class ItemDaysEventsRTBAFH implements YamAdapterInterface {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position, Object ItemListener) {
+    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position, Context context, Object ItemListener) {
         DaysEventsRTBAFHOnClickListener listener = (DaysEventsRTBAFHOnClickListener) ItemListener;
         this.position = position;
         ((DaysEventsRTBAFHViewHolder) viewHolder).rtbafh_title.setText("");
-        Picasso.with(App.getInstance())
+        Picasso.with(context)
                 .load("https://"+info.getmArtist().getCover().getUri().replace("%%", "200x200"))
                 .transform(new RoundedTransformation(8, 2))
                 .into( ((DaysEventsRTBAFHViewHolder) viewHolder).rtbafh_cover );
