@@ -28,4 +28,5 @@
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="no_results">No result</string>
     <string name="action_search">search</string>
+    <string name="error_response">ошибка в ответе сервера</string>
 </resources>
