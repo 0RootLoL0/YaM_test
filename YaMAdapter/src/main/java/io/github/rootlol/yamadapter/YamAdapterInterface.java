@@ -8,7 +8,8 @@ package io.github.rootlol.yamadapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 public interface YamAdapterInterface {
-    void                  onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position, Object ItemListener); //TODO: Object fix pleas
+
+    void                  onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position, Object ItemListener);
     int                   getType();
     int                   getPosition();
 }

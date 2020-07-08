@@ -16,6 +16,9 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -71,14 +74,22 @@ public class SearchAutoCompleteAdapterTool extends BaseAdapter implements Filter
             protected FilterResults performFiltering(CharSequence constraint) {
                 FilterResults filterResults = new FilterResults();
                 if (constraint != null) {
-                    List<String> books = null;
+                    List<String> books = new ArrayList<>();
                     try {
-                        books = ApiMusic.getInstance().getSearchSuggest(AccountManager.get(mContext).peekAuthToken(App.getAccount(), AccountUtils.AUTH_TOKEN_TYPE), constraint.toString()).execute().body().getResult().getSuggestions();
+                        JSONObject jsonobj = ApiMusic.getInstance().getSearchSuggest(AccountManager.get(mContext).peekAuthToken(App.getAccount(), AccountUtils.AUTH_TOKEN_TYPE), constraint.toString()).execute().body();
+                        JSONObject result = (JSONObject) jsonobj.get("result");
+                        JSONArray suggestions = (JSONArray) result.get("suggestions");
+                        for (int i = 0; i < suggestions.size(); i++) {
+                            String suggestion = (String) suggestions.get(i);
+                            books.add(suggestion);
+                        }
+                        filterResults.values = books;
+                        filterResults.count = suggestions.size();
                     } catch (IOException e) {
                         Log.i(App.APP_ID, "performFiltering: "+constraint.toString());
+                        filterResults.values = books;
+                        filterResults.count = 0;
                     }
-                    filterResults.values = books;
-                    filterResults.count = 1;
                 }
                 return filterResults;
             }

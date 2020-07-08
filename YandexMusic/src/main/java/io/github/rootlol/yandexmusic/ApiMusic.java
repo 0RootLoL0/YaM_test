@@ -5,12 +5,15 @@
 
 package io.github.rootlol.yandexmusic;
 
-import java.util.Map;
-import java.util.concurrent.Executor;
+import com.google.gson.JsonObject;
 
+import org.json.simple.JSONObject;
+
+import java.util.Map;
+
+import io.github.rootlol.jsonsimpleconverter.JsonSimpleConverterFactory;
 import io.github.rootlol.yandexmusic.pojo.feed.PojoFeed;
 import io.github.rootlol.yandexmusic.pojo.rotor.stations.dashboard.PojoRotorStationsDashboard;
-import io.github.rootlol.yandexmusic.pojo.search.suggest.PojoSearchSuggest;
 import io.github.rootlol.yandexmusic.pojo.tracks.PojoTracks;
 import io.github.rootlol.yandexmusic.pojo.tracks.downloadinfo.PojoTracksDownloadInfo;
 import io.github.rootlol.yandexmusic.pojo.user.likes.tracks.PojoLikesTracks;
@@ -56,7 +59,7 @@ public class ApiMusic {
         Call<PojoRotorStationsDashboard> getRotorStationsDashboard(@Header("Authorization") String authorization);
 
         @GET("/search/suggest")
-        Call<PojoSearchSuggest> getSearchSuggest(@Header("Authorization") String authorization, @Query("part") String part);
+        Call<JSONObject> getSearchSuggest(@Header("Authorization") String authorization, @Query("part") String part);
 
         @GET
         Call<String> downloadUrl(@Url String url);
@@ -74,6 +77,7 @@ public class ApiMusic {
         if(retrofit == null) {
             retrofit = new Retrofit.Builder()
                     .addConverterFactory(ScalarsConverterFactory.create())
+                    .addConverterFactory(JsonSimpleConverterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create())
                     .baseUrl(urlBase)
                     .build();
