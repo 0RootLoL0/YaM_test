@@ -1,3 +1,4 @@
+include ':YamSearchAutocomplete'
 include ':JsonSimpleConverter'
 rootProject.name='YaM'
 include ':app'

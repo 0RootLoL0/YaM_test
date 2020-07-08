@@ -3,7 +3,7 @@
  * Licensed under the GNU GPL, Version 3
  */
 
-package io.github.rootlol.yam.tools.autocomplete;
+package io.github.rootlol.yamsearchautocomplete;
 
 import android.content.Context;
 import android.os.Handler;

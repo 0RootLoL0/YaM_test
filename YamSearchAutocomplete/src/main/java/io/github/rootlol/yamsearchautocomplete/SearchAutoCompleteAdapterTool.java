@@ -3,11 +3,9 @@
  * Licensed under the GNU GPL, Version 3
  */
 
-package io.github.rootlol.yam.tools.autocomplete;
+package io.github.rootlol.yamsearchautocomplete;
 
-import android.accounts.AccountManager;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,10 +21,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.github.rootlol.yam.App;
-import io.github.rootlol.yam.R;
-import io.github.rootlol.yam.account.AccountUtils;
-import io.github.rootlol.yam.controller.home.MyMusicSubHome;
 import io.github.rootlol.yandexmusic.ApiMusic;
 
 public class SearchAutoCompleteAdapterTool extends BaseAdapter implements Filterable {
@@ -35,10 +29,12 @@ public class SearchAutoCompleteAdapterTool extends BaseAdapter implements Filter
 
     private final Context mContext;
     private List<String> mResults;
+    private String token;
 
-    public SearchAutoCompleteAdapterTool(Context mContext) {
+    public SearchAutoCompleteAdapterTool(Context mContext, String token) {
         this.mContext = mContext;
         mResults = new ArrayList<String>();
+        this.token = token;
     }
 
     @Override
@@ -76,7 +72,7 @@ public class SearchAutoCompleteAdapterTool extends BaseAdapter implements Filter
                 if (constraint != null) {
                     List<String> books = new ArrayList<>();
                     try {
-                        JSONObject jsonobj = ApiMusic.getInstance().getSearchSuggest(AccountManager.get(mContext).peekAuthToken(App.getAccount(), AccountUtils.AUTH_TOKEN_TYPE), constraint.toString()).execute().body();
+                        JSONObject jsonobj = ApiMusic.getInstance().getSearchSuggest(token, constraint.toString()).execute().body();
                         JSONObject result = (JSONObject) jsonobj.get("result");
                         JSONArray suggestions = (JSONArray) result.get("suggestions");
                         for (int i = 0; i < suggestions.size(); i++) {
@@ -86,7 +82,6 @@ public class SearchAutoCompleteAdapterTool extends BaseAdapter implements Filter
                         filterResults.values = books;
                         filterResults.count = suggestions.size();
                     } catch (IOException e) {
-                        Log.i(App.APP_ID, "performFiltering: "+constraint.toString());
                         filterResults.values = books;
                         filterResults.count = 0;
                     }
