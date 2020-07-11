@@ -34,7 +34,7 @@ public class FeedVHFactory implements YamVHFactory {
     public RecyclerView.ViewHolder create(ViewGroup parent, int viewType) {
         switch (viewType) {
             case YamAdapterInterface.PLAYLIST:
-                return new ItemPlaylist.PlaylistsViewHolder(parent, App.getInstance());
+                return new ItemPlaylist.PlaylistViewHolder(parent, App.getInstance());
             case DAYS_EVENTS_RTBAFH:
                 return new ItemDaysEventsRTBAFH.DaysEventsRTBAFHViewHolder(parent);
             default:

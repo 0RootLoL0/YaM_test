@@ -24,14 +24,14 @@ import io.github.rootlol.yamadapter.YamAdapterInterface;
 public class ItemPlaylist implements YamAdapterInterface {
     private int position;
 
-    public static class PlaylistsViewHolder extends RecyclerView.ViewHolder {
+    public static class PlaylistViewHolder extends RecyclerView.ViewHolder {
 
         public CardView card;
         public ImageView cover;
         public TextView lable;
         public TextView info;
 
-        public PlaylistsViewHolder(ViewGroup parent, Context context) {
+        public PlaylistViewHolder(ViewGroup parent, Context context) {
             super(LayoutInflater.from(context).inflate(R.layout.item_playlist, parent, false));
             card  = itemView.findViewById(R.id.item_playlist_cv_card);
             cover = itemView.findViewById(R.id.item_playlist_iv_cover);
@@ -56,7 +56,7 @@ public class ItemPlaylist implements YamAdapterInterface {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position, Context context, Object ItemListener) {
         this.position = position;
-        PlaylistsViewHolder VHolder = (PlaylistsViewHolder) viewHolder;
+        PlaylistViewHolder VHolder = (PlaylistViewHolder) viewHolder;
         final PlaylistOnClickListener listener = (PlaylistOnClickListener) ItemListener;
 
         Picasso.with(context)

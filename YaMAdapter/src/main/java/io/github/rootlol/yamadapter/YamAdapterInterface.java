@@ -12,7 +12,10 @@ import androidx.recyclerview.widget.RecyclerView;
 public interface YamAdapterInterface {
     int PLAYLIST = 0;
     int STATION = 1;
-    int TRACK = 3;
+    int TRACK = 2;
+    int VIDEO = 3;
+    int ALBUM = 4;
+    int ARTIST = 5;
 
     void                  onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position, Context context, Object ItemListener);
     int                   getType();

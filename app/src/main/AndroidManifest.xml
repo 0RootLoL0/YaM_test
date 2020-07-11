@@ -19,9 +19,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".activity.ExceptionActivity"></activity>
         <activity
             android:name=".activity.Settings"
-            android:label="@string/title_activity_settings"></activity>
+            android:label="@string/title_activity_settings" />
         <activity android:name=".activity.Main" />
 
         <service android:name=".account.YaMAuthenticatorService">
@@ -34,7 +35,7 @@
                 android:resource="@xml/authenticator" />
         </service>
 
-        <activity android:name=".activity.Login"/>
+        <activity android:name=".activity.Login" />
         <activity
             android:name=".activity.Splash"
             android:theme="@style/AppTheme.Launcher">

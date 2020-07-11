@@ -12,6 +12,8 @@ import org.json.simple.JSONObject;
 import java.util.Map;
 
 import io.github.rootlol.jsonsimpleconverter.JsonSimpleConverterFactory;
+import io.github.rootlol.yandexmusic.converter.YamConverterFactory;
+import io.github.rootlol.yandexmusic.converter.response.SearchResponse;
 import io.github.rootlol.yandexmusic.pojo.feed.PojoFeed;
 import io.github.rootlol.yandexmusic.pojo.rotor.stations.dashboard.PojoRotorStationsDashboard;
 import io.github.rootlol.yandexmusic.pojo.tracks.PojoTracks;
@@ -36,6 +38,7 @@ import retrofit2.http.Url;
 
 public class ApiMusic {
     public interface Api {
+
         @GET("feed")
         Call<PojoFeed> getFeed(@Header("Authorization") String authorization);
 
@@ -58,6 +61,9 @@ public class ApiMusic {
         @GET("rotor/stations/dashboard")
         Call<PojoRotorStationsDashboard> getRotorStationsDashboard(@Header("Authorization") String authorization);
 
+        @GET("/search")
+        Call<SearchResponse> getSearch(@Header("Authorization") String authorization, @Query("text") String text, @Query("page") String page, @Query("type") String type);
+
         @GET("/search/suggest")
         Call<JSONObject> getSearchSuggest(@Header("Authorization") String authorization, @Query("part") String part);
 
@@ -74,14 +80,17 @@ public class ApiMusic {
     private static Api api;
 
     public static Api getInstance(){
-        if(retrofit == null) {
+        api = retrofit.create(Api.class);
+        return api;
+    }
+    public static Api getInstance(YamConverterFactory.CallbackConverter callbackConverter){
             retrofit = new Retrofit.Builder()
                     .addConverterFactory(ScalarsConverterFactory.create())
                     .addConverterFactory(JsonSimpleConverterFactory.create())
+                    .addConverterFactory(YamConverterFactory.create(callbackConverter))
                     .addConverterFactory(GsonConverterFactory.create())
                     .baseUrl(urlBase)
                     .build();
-        }
         api = retrofit.create(Api.class);
         return api;
     }

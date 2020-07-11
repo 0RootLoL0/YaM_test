@@ -3,30 +3,33 @@
  * Licensed under the GNU GPL, Version 3
  */
 
-package io.github.rootlol.jsonsimpleconverter;
+package io.github.rootlol.yandexmusic.converter;
 
-import org.json.simple.JSONObject;
-import org.json.simple.JSONValue;
-
-import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
 
-import okhttp3.MediaType;
+import io.github.rootlol.yandexmusic.converter.response.SearchResponse;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Converter;
 import retrofit2.Retrofit;
 
-public class JsonSimpleConverterFactory extends Converter.Factory {
+public class YamConverterFactory extends Converter.Factory {
+    public CallbackConverter callbackConverter;
+    public interface CallbackConverter{
+        void JsonErrorParse(String e, String json);
+    }
 
-    public static JsonSimpleConverterFactory create(){
-        return new JsonSimpleConverterFactory();
+
+    public static YamConverterFactory create(CallbackConverter callback){
+        YamConverterFactory factory = new YamConverterFactory();
+        factory.callbackConverter = callback;
+        return factory;
     }
 
     @Override
     public Converter<ResponseBody, ?> responseBodyConverter(Type type, Annotation[] annotations, Retrofit retrofit) {
-        if (type == JSONObject.class) return JsonObjectRequestBodyConverter.INSTANCE;
+        if (type == SearchResponse.class) return new SearchConverter(callbackConverter);
         return null;
     }
 
@@ -35,3 +38,4 @@ public class JsonSimpleConverterFactory extends Converter.Factory {
         return null;
     }
 }
+

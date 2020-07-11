@@ -8,7 +8,6 @@ package io.github.rootlol.yamadapter.item;
 import android.content.Context;
 import android.net.Uri;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -51,7 +50,7 @@ public class ItemStation implements YamAdapterInterface {
             BGStationImage= itemView.findViewById(R.id.BGStationImage);
         }
     }
-    public static interface StationOnClickListener{
+    public interface StationOnClickListener{
         void StationOnItemClick(ItemStation model);
     }
 
